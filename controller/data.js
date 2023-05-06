@@ -24,6 +24,20 @@ const getCollegeCodeId =  async (req,res) =>{
     });
 
     console.log(filData[0].CollegeCodeId);
-    res.status(200).json(filData[0].CollegeCodeId)}
+    res.status(200).json(filData[0].CollegeCodeId)
+};
 
-module.exports = {getdata,getCollegeCodeId};
+const getDistrict = async(req,res) => {
+
+    const getDistrict = await data.find(req.query);
+
+    var filData = getDistrict.filter(function(el){
+        return el.CollegeName == req.query.CollegeName;
+    });
+
+    console.log(filData[0].District);
+    res.status(200).json(filData[0].District)
+    
+}
+
+module.exports = {getdata,getCollegeCodeId,getDistrict};

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>Webslesson Tutorial | JSON - Dynamic Dependent Dropdown List using Jquery and Ajax</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ </head>
+ <body>
+  <br /><br />
+  <div class="container" style="width:600px;">
+   <h2> Dynamic Dependent Dropdown List using Jquery </h2><br /><br />
+   <select name="District" id="District" class="form-control input-lg">
+    <option value="">Select District</option>
+   </select>
+   <br />
+   <select name="CollegeName" id="CollegeName" class="form-control input-lg">
+    <option value="">Select CollegeName </option>
+   </select>
+   <br />
+   <select name="CollegeCodeId" id="CollegeCodeId" class="form-control input-lg">
+    <option value="">Select CollegeCodeId</option>
+   </select>
+  </div>
+ </body>
+</html>
+
+<!-- <script>
+$(document).ready(function(){
+
+ load_json_data('District');
+
+ function load_json_data(District, CollegeCodeId)
+ {
+  var html_code = '';
+  $.getJSON('copydata.json', function(data){
+
+   html_code += '<option value="">Select '+District+'</option>';
+   $.each(data, function(key, value){
+    if(District == 'District')
+    {
+     if(value.CollegeCodeId == '0')
+     {
+      html_code += '<option value="'+value.District+'">'+value.CollegeName+'</option>';
+     }
+    }
+    else
+    {
+     if(value.CollegeCodeId == CollegeCodeId)
+     {
+      html_code += '<option value="'+value.District+'">'+value.CollegeName+'</option>';
+     }
+    }
+   });
+   $('#'+District).html(html_code);
+  });
+
+ }
+
+ $(document).on('change', '#District', function(){
+  var District_id = $(this).val();
+  if(District_id != '')
+  {
+   load_json_data('CollegeName', District_id);
+  }
+  else
+  {
+   $('#CollegeName').html('<option value="">Select CollegeName</option>');
+   $('#CollegeCodeId').html('<option value="">Select CollegeCodeId</option>');
+  }
+ });
+ $(document).on('change', '#CollegeName', function(){
+  var CollegeName_id = $(this).val();
+  if(CollegeName_id != '')
+  {
+   load_json_data('CollegeCodeId', CollegeName_id);
+  }
+  else
+  {
+   $('#CollegeCodeId').html('<option value="">Select CollegeCodeId</option>');
+  }
+ });
+});
+</script> -->
