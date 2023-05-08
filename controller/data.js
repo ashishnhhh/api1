@@ -40,4 +40,17 @@ const getDistrict = async(req,res) => {
     
 }
 
-module.exports = {getdata,getCollegeCodeId,getDistrict};
+const getCollegeName = async(req,res) => {
+
+    const getCollegeName = await data.find(req.query);
+
+    var filData = getCollegeName.filter(function(el){
+        return el.District== req.query.District;
+    });
+
+    console.log(filData[0].CollegeName);
+    res.status(200).json(filData[0].CollegeName)
+    
+}
+
+module.exports = {getdata,getCollegeCodeId,getDistrict,getCollegeName};
