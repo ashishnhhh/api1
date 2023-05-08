@@ -140,32 +140,52 @@ const colleges = [
     
 ];
 
-// Get references to the select elements
-const districtSelect = document.getElementById('district');
-const collegeSelect = document.getElementById('college');
+        const districtSelect = document.getElementById('district');
+        const collegeSelect = document.getElementById('college');
+        const collegeCodeIdSelect = document.getElementById('collegecodeid');
 
-// Populate the district dropdown with options
-const districts = [...new Set(colleges.map(college => college.District))];
-districts.forEach(district => {
-    const option = document.createElement('option');
-    option.value = district;
-    option.text = district;
-    districtSelect.add(option);
-});
+        // Populate the district dropdown with options
+        const districts = [...new Set(colleges.map(college => college.District))];
+        districts.forEach(district => {
+            const option = document.createElement('option');
+            option.value = district;
+            option.text = district;
+            districtSelect.add(option);
+        });
 
-// Function to populate the college dropdown based on the selected district
-function populateColleges() {
-    const selectedDistrict = districtSelect.value;
+        // Function to populate the college dropdown based on the selected district
+        function populateColleges() {
+            const selectedDistrict = districtSelect.value;
 
-    // Remove existing options from college dropdown
-    collegeSelect.innerHTML = '<option value=""></option>';
+            // Remove existing options from college and college code ID dropdowns
+            collegeSelect.innerHTML = '';
+            collegeCodeIdSelect.innerHTML = '';
 
-    // Filter colleges based on selected district and populate the college dropdown with options
-    const filteredColleges = colleges.filter(college => college.District === selectedDistrict);
-    filteredColleges.forEach(college => {
-        const option = document.createElement('option');
-        option.value = college.CollegeCodeId;
-        option.text = college.CollegeName + ' (' + college.CollegeCodeId + ')';
-        collegeSelect.add(option);
-    });
-}
+            // Filter colleges based on selected district and populate the college dropdown with options
+            const filteredColleges = colleges.filter(college => college.District === selectedDistrict);
+            filteredColleges.forEach(college => {
+                const option = document.createElement('option');
+                option.text = college.CollegeName;
+                option.setAttribute('data-collegename', college.CollegeName);
+                option.setAttribute('data-collegecodeid', college.CollegeCodeId);
+                collegeSelect.add(option);
+            });
+
+            // Call the function to populate the CollegeCodeId dropdown based on the selected CollegeName
+            populateCollegeCodeIds();
+        }
+
+        // Function to populate the CollegeCodeId dropdown based on the selected CollegeName
+        function populateCollegeCodeIds() {
+            const selectedCollegeName = collegeSelect.value;
+
+            // Filter colleges based on selected CollegeName and populate the CollegeCodeId dropdown with options
+            const filteredColleges = colleges.filter(college => college.CollegeName === selectedCollegeName);
+            filteredColleges.forEach(college => {
+                const option = document.createElement('option');
+                option.text = college.CollegeCodeId;
+                // option.setAttribute('data-collegename', college.CollegeName);
+                option.setAttribute('data-collegecodeid', college.CollegeCodeId);
+                collegeCodeIdSelect.add(option);
+            })
+        };
