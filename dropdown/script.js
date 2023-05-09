@@ -140,52 +140,46 @@ const colleges = [
     
 ];
 
-        const districtSelect = document.getElementById('district');
-        const collegeSelect = document.getElementById('college');
-        const collegeCodeIdSelect = document.getElementById('collegecodeid');
+       // Assume the JSON data is stored in a variable named 'colleges'
+const districts = [...new Set(colleges.map(college => college.District))];
+const districtsDropdown = document.getElementById('districts');
+const collegesDropdown = document.getElementById('colleges');
+const collegeCodeInput = document.getElementById('college-code');
 
-        // Populate the district dropdown with options
-        const districts = [...new Set(colleges.map(college => college.District))];
-        districts.forEach(district => {
-            const option = document.createElement('option');
-            option.value = district;
-            option.text = district;
-            districtSelect.add(option);
-        });
+// Populate districts dropdown
+for (let district of districts) {
+  const option = document.createElement('option');
+  option.value = district;
+  option.textContent = district;
+  districtsDropdown.appendChild(option);
+}
 
-        // Function to populate the college dropdown based on the selected district
-        function populateColleges() {
-            const selectedDistrict = districtSelect.value;
+// Function to populate colleges dropdown based on selected district
+function populateColleges() {
+  const selectedDistrict = districtsDropdown.value;
 
-            // Remove existing options from college and college code ID dropdowns
-            collegeSelect.innerHTML = '';
-            collegeCodeIdSelect.innerHTML = '';
+  // Remove existing options from college dropdown
+  collegesDropdown.innerHTML = '<option value="">--Select college--</option>';
 
-            // Filter colleges based on selected district and populate the college dropdown with options
-            const filteredColleges = colleges.filter(college => college.District === selectedDistrict);
-            filteredColleges.forEach(college => {
-                const option = document.createElement('option');
-                option.text = college.CollegeName;
-                option.setAttribute('data-collegename', college.CollegeName);
-                option.setAttribute('data-collegecodeid', college.CollegeCodeId);
-                collegeSelect.add(option);
-            });
+  // Filter colleges based on selected district and populate the college dropdown
+  const filteredColleges = colleges.filter(college => college.District === selectedDistrict);
+  for (let college of filteredColleges) {
+    const option = document.createElement('option');
+    option.value = college.CollegeName;
+    option.textContent = college.CollegeName;
+    collegesDropdown.appendChild(option);
+  }
+}
 
-            // Call the function to populate the CollegeCodeId dropdown based on the selected CollegeName
-            populateCollegeCodeIds();
-        }
+// Function to filter college code based on selected college name and display it
+function filterCollegeCode() {
+  const selectedCollegeName = collegesDropdown.value;
 
-        // Function to populate the CollegeCodeId dropdown based on the selected CollegeName
-        function populateCollegeCodeIds() {
-            const selectedCollegeName = collegeSelect.value;
-
-            // Filter colleges based on selected CollegeName and populate the CollegeCodeId dropdown with options
-            const filteredColleges = colleges.filter(college => college.CollegeName === selectedCollegeName);
-            filteredColleges.forEach(college => {
-                const option = document.createElement('option');
-                option.text = college.CollegeCodeId;
-                // option.setAttribute('data-collegename', college.CollegeName);
-                option.setAttribute('data-collegecodeid', college.CollegeCodeId);
-                collegeCodeIdSelect.add(option);
-            })
-        };
+  // Filter college code based on selected college name and display it
+  const filteredCollegeCode = colleges.filter(college => college.CollegeName === selectedCollegeName);
+  if (filteredCollegeCode.length > 0) {
+    collegeCodeInput.value = filteredCollegeCode[0].CollegeCodeId;
+  } else {
+    collegeCodeInput.value = '';
+  }
+}

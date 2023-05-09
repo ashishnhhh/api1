@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dependent Dynamic Dropdown Example</title>
+</head>
+<body>
+    <form>
+      <label for="districts">Select district:</label>
+      <select id="districts" onchange="populateColleges()">
+        <option value="">--Select district--</option>
+      </select>
+      
+      <label for="colleges">Select college:</label>
+      <select id="colleges" onchange="filterCollegeCode()">
+        <option value="">--Select college--</option>
+      </select>
+      
+      <label for="college-code">College code:</label>
+      <input type="text" id="college-code" readonly>
+       
+    </form>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+

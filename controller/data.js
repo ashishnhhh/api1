@@ -38,7 +38,7 @@ const getDistrict = async(req,res) => {
     console.log(filData[0].District);
     res.status(200).json(filData[0].District)
     
-}
+};
 
 const getCollegeName = async(req,res) => {
 
@@ -50,7 +50,6 @@ const getCollegeName = async(req,res) => {
 
     console.log(filData[0].CollegeName);
     res.status(200).json(filData[0].CollegeName)
-    
-}
+};
 
 module.exports = {getdata,getCollegeCodeId,getDistrict,getCollegeName};
